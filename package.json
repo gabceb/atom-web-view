@@ -1,0 +1,17 @@
+{
+  "name": "web-view",
+  "version": "0.0.1",
+  "description": "Opens a web browser in Atom",
+  "main": "./lib/web",
+  "repository": "https://github.com/gabceb/atom-web-view",
+  "license": "MIT",
+  "engines": {
+    "atom": "*"
+  },
+  "dependencies": {
+    "fs-plus": "2.x",
+    "underscore-plus": "1.x",
+    "underscore.string": "2.3.x",
+    "validator": "3.4.0"
+  }
+}

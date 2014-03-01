@@ -1,0 +1,11 @@
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'WebView'
+      'submenu': [
+        { 'label': 'Go to page', 'command': 'web-view:go-to-page' }
+      ]
+    ]
+  }
+]

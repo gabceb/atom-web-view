@@ -1,0 +1,5 @@
+'.platform-darwin':
+  'ctrl-G': 'web-view:go-to-page'
+
+'.platform-win32':
+  'ctrl-G': 'web-view:go-to-page'
