@@ -16,7 +16,7 @@ module.exports =
 
       new WebEditorView(pathname)
 
-    atom.workspaceView.eachPane (pane) ->
+    atom.workspaceView.eachPaneView (pane) ->
       pane.command 'web-view:go-to-page', ->
         miniView = new WebEditorUriMiniView
         miniView.toggle()
