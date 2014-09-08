@@ -1,6 +1,6 @@
 {
   "name": "web-view",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Opens a web browser in Atom",
   "main": "./lib/web",
   "repository": "https://github.com/gabceb/atom-web-view",
