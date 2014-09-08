@@ -39,13 +39,13 @@ class WebEditorUriMiniView extends View
   #
   confirm: ->
     url = @miniEditor.getText()
-    editorView = atom.workspace.getActiveView()
+    editorView = atom.workspaceView.getActiveView()
 
     # Add a the protocol if not present
     url = "http://#{url}" unless /^(http)\S+/.test(url)
 
     if validator.isURL(url, protocols: ['http','https'], require_tld: true, require_protocol: true)
-      atom.workspace.open("web-view:#{url}", split: 'right', searchAllPanes: true)
+      atom.workspaceView.open("web-view:#{url}", split: 'right', searchAllPanes: true)
 
       @detach()
     else
@@ -59,12 +59,12 @@ class WebEditorUriMiniView extends View
     if @previouslyFocusedElement?.isOnDom()
       @previouslyFocusedElement.focus()
     else
-      atom.workspace.focus()
+      atom.workspaceView.focus()
 
   # Shows the mini view on the active editor
   attach: ->
     if editor = atom.workspace.getActiveEditor()
       @storeFocusedElement()
-      atom.workspace.append(this)
+      atom.workspaceView.append(this)
       @message.text("Enter a URL")
       @miniEditor.focus()
