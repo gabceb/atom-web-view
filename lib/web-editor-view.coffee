@@ -6,7 +6,7 @@ module.exports =
 class WebEditorView extends ScrollView
 
   @content: ->
-    @iframe class: 'web-view-iframe', tabindex: -1, src: ""
+    @iframe class: 'web-view-iframe', name: 'disable-x-frame-options', tabindex: -1, src: ""
 
   constructor: (@uri) ->
     super
