@@ -6,12 +6,26 @@ module.exports =
 class WebEditorView extends ScrollView
 
   @content: ->
-    @iframe class: 'web-view-iframe', name: 'disable-x-frame-options', tabindex: -1, src: ""
+    @div class: 'web-view-area', =>
+      @div class: 'web-view-toolbar', =>
+        @button outlet: 'reladPage', class: 'icon icon-sync', 'Reload',
+      @iframe id: 'web-view-iframe', name: 'disable-x-frame-options', tabindex: -1, src: ""
 
-  constructor: (@uri) ->
+  constructor: (uri) ->
     super
 
-    @.attr('src', @uri)
+    @.find('#web-view-iframe').attr('src', uri)
+
+  initialize: (@pack, @packageManager) ->
+    @handleButtonEvents()
+
+  handleButtonEvents: ->
+    @reladPage.on 'click', =>
+      @reloadIframe()
+      false
+
+  reloadIframe: () ->
+    @.find('#web-view-iframe')[0].contentWindow.location.reload();
 
   @deserialize: ({uri}) ->
 
