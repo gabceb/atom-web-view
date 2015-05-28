@@ -12,6 +12,7 @@
     "fs-plus": "2.x",
     "underscore-plus": "1.x",
     "underscore.string": "2.3.x",
-    "validator": "3.4.0"
+    "validator": "3.4.0",
+    "atom-space-pen-views": "^2.0.3"
   }
 }

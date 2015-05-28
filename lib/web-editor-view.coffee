@@ -1,5 +1,5 @@
 _ = require 'underscore-plus'
-{$, ScrollView} = require 'atom'
+{$, ScrollView} = require 'atom-space-pen-views'
 
 # View that renders the image of an {WebEditor}.
 module.exports =

@@ -6,7 +6,7 @@ WebEditorUriMiniView = require './web-editor-uri-mini-view'
 
 module.exports =
   activate: ->
-    atom.workspace.registerOpener (uriToOpen) ->
+    atom.workspace.addOpener (uriToOpen) ->
 
       web_view_protocol = 'web-view:'
 
@@ -16,9 +16,8 @@ module.exports =
 
       new WebEditorView(pathname)
 
-    atom.workspaceView.eachPaneView (pane) ->
-      pane.command 'web-view:go-to-page', ->
-        miniView = new WebEditorUriMiniView
-        miniView.toggle()
+    atom.workspace.observeTextEditors (editor) ->
+      miniView = new WebEditorUriMiniView
+      miniView.toggle()
 
   deactivate: ->
