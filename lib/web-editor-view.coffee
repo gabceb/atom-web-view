@@ -16,6 +16,9 @@ class WebEditorView extends ScrollView
 
     @.find('#web-view-iframe').attr('src', uri)
 
+  getElement: () ->
+    @.find('#web-view-iframe')[0]
+
   initialize: (@pack, @packageManager) ->
     @handleButtonEvents()
 
@@ -33,7 +36,7 @@ class WebEditorView extends ScrollView
   #
   # Returns a {String}
   getTitle: ->
-    @uri || 'Uri-web'
+      'Uri-web'
 
   # Serializes this view
   #

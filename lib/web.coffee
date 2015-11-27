@@ -1,23 +1,94 @@
-_ = require 'underscore-plus'
+# atom clean up work
+{CompositeDisposable} = require 'atom'
+
+# included modules
+WebEditorGluon = require './web-editor-gluon'
+WebEditorAddress = require './web-editor-uri-mini-view'
+
+# universal resource link (parser)
 url = require 'url'
-_str = require 'underscore.string'
-WebEditorView = require './web-editor-view'
-WebEditorUriMiniView = require './web-editor-uri-mini-view'
 
 module.exports =
-  activate: ->
-    atom.workspace.addOpener (uriToOpen) ->
+    activate: (state) ->
+        @disposable =
+            new CompositeDisposable()
 
-      web_view_protocol = 'web-view:'
+        # for the iframe..
+        pane = atom.workspace.getActivePane()
+        paneElement = atom.views.getView(pane)
 
-      {protocol, pathname} = url.parse(uriToOpen)
-      pathname = _str.strRight(uriToOpen, ':')
-      return unless protocol is web_view_protocol
+        # for the address bar...
+        textEditor = atom.workspace.getActiveTextEditor()
+        textEditorElement = atom.views.getView(textEditor)
 
-      new WebEditorView(pathname)
 
-    atom.workspace.observeTextEditors (editor) ->
-      miniView = new WebEditorUriMiniView
-      miniView.toggle()
+        subscription =
+            atom.commands.add 'atom-workspace',
+            'web-view:toggle': => @toggle()
+            'web-view:reload': => @reload()
 
-  deactivate: ->
+        @disposable.add atom.workspace.addOpener (uri) ->
+            return new WebEditorGluon() if uri is "view://web"
+
+        @disposable.add atom.views.addViewProvider WebEditorGluon, paneElement
+
+        @editor = editor =
+            atom.workspace.buildTextEditor()
+
+        element = atom.views.getView(editor)
+        element.setAttribute('mini', '')
+        self = @
+
+        element.addEventListener 'keydown', (e) ->
+            if(e.keyCode == 13) # Enter
+                atom.commands.dispatch(editor, 'core:confirm')
+                self.hide()
+            if(e.keyCode == 27) # Escape
+                atom.commands.dispatch(editor, 'core:cancel')
+                self.hide()
+
+        @disposable.add atom.commands.add editor,
+            'core:confirm': @confirm
+            'core:cancel': @cancel
+
+        @panel = atom.workspace.addModalPanel(item: editor, visible: false)
+
+        @disposable.add subscription
+
+    deactivate: ->
+        @disposable.dispose()
+        @panel.destroy()
+        @element.destroy()
+
+    confirm: (event) ->
+        pane = atom.workspace.getActivePane()
+        text = this.getText()
+
+        if pane.activeItem instanceof WebEditorGluon
+            pane.activeItem.relocate text
+        else
+            atom.notifications.addError "Web View must be the active item."
+
+    reload: (event) ->
+        pane = atom.workspace.getActivePane()
+
+        if pane.activeItem instanceof WebEditorGluon
+            pane.activeItem.element.contentWindow.location.reload()
+
+    cancel: (event) ->
+        atom.workspace.panelForItem(this).hide()
+
+    show: ->
+        atom.workspace.open("view://web")
+
+        @panel.show()
+        atom.views.getView(@editor).focus()
+
+    hide: ->
+        @panel.hide()
+
+    toggle: ->
+        if @panel.isVisible()
+             @hide()
+        else
+            @show()
