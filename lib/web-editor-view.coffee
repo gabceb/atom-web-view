@@ -5,7 +5,7 @@ class WebEditorView
 
         # Create root element
         @element = document.createElement 'iframe'
-        @relocate 'https://atom.io/'
+        @relocate 'https://www.bing.com/'
         @element.setAttribute 'name', 'disable-x-frame-options'
 
         # It is very important to note that this is for development only...
