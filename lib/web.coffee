@@ -2,8 +2,7 @@
 {CompositeDisposable} = require 'atom'
 
 # included modules
-WebEditorGluon = require './web-editor-gluon'
-WebEditorAddress = require './web-editor-uri-mini-view'
+WebEditorView = require './web-editor-view'
 
 # universal resource link (parser)
 url = require 'url'
@@ -28,9 +27,9 @@ module.exports =
             'web-view:reload': => @reload()
 
         @disposable.add atom.workspace.addOpener (uri) ->
-            return new WebEditorGluon() if uri is "view://web"
+            return new WebEditorView() if uri is "view://web"
 
-        @disposable.add atom.views.addViewProvider WebEditorGluon, paneElement
+        @disposable.add atom.views.addViewProvider WebEditorView, paneElement
 
         @editor = editor =
             atom.workspace.buildTextEditor()
@@ -64,7 +63,7 @@ module.exports =
         pane = atom.workspace.getActivePane()
         text = this.getText()
 
-        if pane.activeItem instanceof WebEditorGluon
+        if pane.activeItem instanceof WebEditorView
             pane.activeItem.relocate text
         else
             atom.notifications.addError "Web View must be the active item."
@@ -72,7 +71,7 @@ module.exports =
     reload: (event) ->
         pane = atom.workspace.getActivePane()
 
-        if pane.activeItem instanceof WebEditorGluon
+        if pane.activeItem instanceof WebEditorView
             pane.activeItem.element.contentWindow.location.reload()
 
     cancel: (event) ->

@@ -1,8 +1,8 @@
 module.exports =
-class WebEditorView
+class WebEditorGluon
     constructor: (serializedState) ->
         console.log serializedState
-
+        
         # Create root element
         @element = document.createElement 'iframe'
         @relocate 'https://atom.io/'
