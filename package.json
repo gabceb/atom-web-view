@@ -1,6 +1,6 @@
 {
   "name": "web-view",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Minimalistic web browser in Atom",
   "main": "./lib/web",
   "repository": "https://github.com/gabceb/atom-web-view",
@@ -9,8 +9,7 @@
   "engines": {
     "atom": "*"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "gulp": "^3.9.0",
     "gulp-batch": "^1.0.5",
