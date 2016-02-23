@@ -1,6 +1,6 @@
 {
   "name": "web-view",
-  "version": "1.2.4",
+  "version": "2.0.0",
   "description": "Minimalistic web browser in Atom",
   "main": "./lib/web",
   "repository": "https://github.com/gabceb/atom-web-view",
