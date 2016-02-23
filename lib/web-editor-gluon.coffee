@@ -1,11 +1,11 @@
 module.exports =
-class WebEditorView
+class WebEditorGluon
     constructor: (serializedState) ->
         console.log serializedState
-
+        
         # Create root element
         @element = document.createElement 'iframe'
-        @relocate 'https://www.bing.com/'
+        @relocate 'https://atom.io/'
         @element.setAttribute 'name', 'disable-x-frame-options'
 
         # It is very important to note that this is for development only...
