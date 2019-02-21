@@ -30,7 +30,7 @@ It has a very neat and unique design that has a minimalist, simple design to it 
 * Report all *bugs* and *feature* requests in the issues section on **github**
 * If you would like to help out first fork the repository
 ```git
-git clone https://github.com/gabcev/atom-web-view
+git clone https://github.com/gabceb/atom-web-view.git
 git commit -am "<changelog>"
 git add .
 git push https://github.com/YOUR-GIT-USERNAME/atom-web-view
